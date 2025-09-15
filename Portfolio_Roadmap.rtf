@@ -1,235 +1,148 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2822
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Bold;\f1\froman\fcharset0 Times-Italic;\f2\froman\fcharset0 Times-Roman;
-}
-{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red109\green109\blue109;}
-{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c50196\c50196\c50196;}
-{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid2\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid1}
-{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid102\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{square\}}{\leveltext\leveltemplateid103\'01\uc0\u9642 ;}{\levelnumbers;}\fi-360\li2160\lin2160 }{\listname ;}\listid2}
-{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid202\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid3}
-{\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid301\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid302\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid4}
-{\list\listtemplateid5\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid401\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid402\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid5}
-{\list\listtemplateid6\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid501\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid502\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid6}
-{\list\listtemplateid7\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid601\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid7}}
-{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}{\listoverride\listid6\listoverridecount0\ls6}{\listoverride\listid7\listoverridecount0\ls7}}
-\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\deftab720
-\pard\pardeftab720\sa280\partightenfactor0
+1. Data Engineering Foundations (ETL + Warehousing)
+Goal: Show you can move raw data → clean warehouse-ready schema.
+	•	Project Idea: Patient Encounter ETL Pipeline
+	◦	Ingest FHIR-like patient encounter data from Postgres into a cloud warehouse (BigQuery, Redshift, or Snowflake).
+	◦	Transform into a star schema (fact table: encounters, dimensions: patients, providers, diagnoses).
+	◦	Document with ERDs + dbt-style transformations.
+	•	Tech: Python (ETL), SQL, Airflow/cron, Docker (optional).
+	•	Deliverable: GitHub repo + ERD diagram + sample queries proving schema works.
 
-\f0\b\fs28 \cf0 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 1. Data Engineering Foundations (ETL + Warehousing)\
-\pard\pardeftab720\sa240\partightenfactor0
+2. Analytics & Reporting (BI + Dashboards)
+Goal: Show you can turn raw tables into decision-ready reports.
+	•	Project Idea: Healthcare Utilization Dashboard
+	◦	Use your encounter star schema.
+	◦	Build dashboards in Power BI or Tableau:
+	▪	Average wait times
+	▪	Encounter counts by provider/specialty
+	▪	Readmission rates
+	◦	Include drilldowns + interactive filters.
+	•	Tech: SQL (aggregations), Power BI/Tableau.
+	•	Deliverable: Screenshots/GIFs of dashboard + SQL queries + published dashboard link (if allowed).
 
-\f1\i\b0\fs24 \cf0 Goal
-\f2\i0 : Show you can move raw data \uc0\u8594  clean warehouse-ready schema.\
-\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
-\ls1\ilvl0
-\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Project Idea
-\f2\b0 : 
-\f1\i Patient Encounter ETL Pipeline
-\f2\i0 \
-\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
-\ls1\ilvl1\cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Ingest FHIR-like patient encounter data from Postgres into a cloud warehouse (BigQuery, Redshift, or Snowflake).\
-\ls1\ilvl1\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Transform into a 
-\f0\b star schema
-\f2\b0  (fact table: encounters, dimensions: patients, providers, diagnoses).\
-\ls1\ilvl1\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Document with ERDs + dbt-style transformations.\
-\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
-\ls1\ilvl0
-\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Tech
-\f2\b0 : Python (ETL), SQL, Airflow/cron, Docker (optional).\
-\ls1\ilvl0
-\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Deliverable
-\f2\b0 : GitHub repo + ERD diagram + sample queries proving schema works.\
-\pard\pardeftab720\partightenfactor0
-\cf3 \strokec3 \
-\pard\pardeftab720\sa280\partightenfactor0
+3. Advanced Analytics (Cohort & Claims Analysis)
+Goal: Highlight your healthcare/claims expertise.
+	•	Project Idea: Claims Cost & Demographics Study
+	◦	Analyze claims (real or synthetic datasets like CMS DE-SynPUF).
+	◦	KPIs: cost per patient, chronic disease prevalence, provider efficiency.
+	◦	Cohort comparisons (e.g., diabetic vs. non-diabetic populations).
+	•	Tech: SQL, Python (pandas, matplotlib/seaborn).
+	•	Deliverable: Notebook + report + data story with visuals.
 
-\f0\b\fs28 \cf0 \strokec2 2. Analytics & Reporting (BI + Dashboards)\
-\pard\pardeftab720\sa240\partightenfactor0
+4. Predictive Modeling (Machine Learning)
+Goal: Transition into ML by predicting an outcome from healthcare data.
+	•	Project Idea: Readmission Risk Prediction
+	◦	Use features: age, diagnoses, encounter history, labs (if dataset allows).
+	◦	Train/test: Logistic Regression, Random Forest, XGBoost.
+	◦	Evaluate with AUC/ROC, precision-recall.
+	•	Tech: Python (scikit-learn, XGBoost, pandas).
+	•	Deliverable: Notebook + model comparison + confusion matrix plots.
 
-\f1\i\b0\fs24 \cf0 Goal
-\f2\i0 : Show you can turn raw tables into decision-ready reports.\
-\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
-\ls2\ilvl0
-\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Project Idea
-\f2\b0 : 
-\f1\i Healthcare Utilization Dashboard
-\f2\i0 \
-\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
-\ls2\ilvl1\cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Use your encounter star schema.\
-\ls2\ilvl1\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Build dashboards in 
-\f0\b Power BI
-\f2\b0  or 
-\f0\b Tableau
-\f2\b0 :\
-\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\sa240\partightenfactor0
-\ls2\ilvl2\cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9642 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Average wait times\
-\ls2\ilvl2\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9642 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Encounter counts by provider/specialty\
-\ls2\ilvl2\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9642 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Readmission rates\
-\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
-\ls2\ilvl1\cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Include drilldowns + interactive filters.\
-\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
-\ls2\ilvl0
-\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Tech
-\f2\b0 : SQL (aggregations), Power BI/Tableau.\
-\ls2\ilvl0
-\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Deliverable
-\f2\b0 : Screenshots/GIFs of dashboard + SQL queries + published dashboard link (if allowed).\
-\pard\pardeftab720\partightenfactor0
-\cf3 \strokec3 \
-\pard\pardeftab720\sa280\partightenfactor0
+5. End-to-End Production Project (Pipeline + Analytics + ML)
+Goal: One “flagship project” that integrates everything above.
+	•	Project Idea: Healthcare Outcomes Platform
+	◦	Ingest → Clean → Star Schema → BI Dashboard → Predictive Model.
+	◦	Example: “Pipeline for predicting hospital readmissions and reporting utilization metrics.”
+	•	Tech: Python, SQL, Airflow, Docker, Power BI/Tableau, scikit-learn.
+	•	Deliverable: Full GitHub repo, architecture diagram, demo dashboard, ML notebook.
 
-\f0\b\fs28 \cf0 \strokec2 3. Advanced Analytics (Cohort & Claims Analysis)\
-\pard\pardeftab720\sa240\partightenfactor0
+Bonus Project (Optional, but high-impact)
+	•	Natural Language Processing (NLP) on Clinical Notes
+	◦	Use synthetic notes (MIMIC-III or other datasets).
+	◦	Apply topic modeling or BERT embeddings to extract insights (e.g., most common symptoms before readmission).
+	◦	This shows frontier skills.
 
-\f1\i\b0\fs24 \cf0 Goal
-\f2\i0 : Highlight your healthcare/claims expertise.\
-\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
-\ls3\ilvl0
-\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Project Idea
-\f2\b0 : 
-\f1\i Claims Cost & Demographics Study
-\f2\i0 \
-\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
-\ls3\ilvl1\cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Analyze claims (real or synthetic datasets like CMS DE-SynPUF).\
-\ls3\ilvl1\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 KPIs: cost per patient, chronic disease prevalence, provider efficiency.\
-\ls3\ilvl1\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Cohort comparisons (e.g., diabetic vs. non-diabetic populations).\
-\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
-\ls3\ilvl0
-\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Tech
-\f2\b0 : SQL, Python (pandas, matplotlib/seaborn).\
-\ls3\ilvl0
-\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Deliverable
-\f2\b0 : Notebook + report + data story with visuals.\
-\pard\pardeftab720\partightenfactor0
-\cf3 \strokec3 \
-\pard\pardeftab720\sa280\partightenfactor0
+With this setup:
+	•	Data Engineering → ETL + star schema.
+	•	Analytics/Reporting → SQL + BI dashboards.
+	•	Advanced Analytics → healthcare cohorts/claims.
+	•	ML → predictive readmissions.
+	•	Flagship → end-to-end integration.
 
-\f0\b\fs28 \cf0 \strokec2 4. Predictive Modeling (Machine Learning)\
-\pard\pardeftab720\sa240\partightenfactor0
+healthcare-data-portfolio
+│
+├── README.md                 # High-level overview of portfolio
+├── 01_data_engineering/      # ETL + Star Schema
+│   ├── README.md             # Explains pipeline, schema design
+│   ├── scripts/              # Python ETL scripts
+│   ├── sql/                  # SQL for star schema & transformations
+│   ├── erd.png               # ER diagram
+│   └── docker-compose.yml    # Optional: containerized pipeline
+│
+├── 02_analytics_reporting/   # BI Dashboards
+│   ├── README.md             # Explains metrics, dashboards
+│   ├── sql/                  # Queries powering dashboards
+│   ├── dashboards/           # Screenshots/GIF exports of Tableau/Power BI
+│   └── reports/              # Exported .pbix/.twbx (if sharable)
+│
+├── 03_advanced_analytics/    # Cohort & Claims Analysis
+│   ├── README.md             # Describes KPIs, findings
+│   ├── notebooks/            # Jupyter notebooks with analysis
+│   └── plots/                # Saved plots/visuals
+│
+├── 04_machine_learning/      # Predictive Modeling
+│   ├── README.md             # Model approach, metrics, conclusions
+│   ├── notebooks/            # ML training/evaluation notebooks
+│   ├── data/                 # Synthetic/sample data (if small)
+│   └── results/              # ROC curves, confusion matrices, feature importance
+│
+├── 05_end_to_end_project/    # Flagship Project
+│   ├── README.md             # Explains architecture & flow
+│   ├── architecture.png      # System architecture diagram
+│   ├── pipeline/             # ETL scripts + Airflow DAGs
+│   ├── analytics/            # SQL + BI assets
+│   ├── ml/                   # ML models + notebooks
+│   └── demo/                 # Screenshots/GIF demo of pipeline/dashboard
+│
+└── 06_bonus_nlp/             # Optional NLP on Clinical Notes
+    ├── README.md             # Approach & results
+    ├── notebooks/            # NLP experiments
+    └── results/              # Word clouds, topic models, embeddings
 
-\f1\i\b0\fs24 \cf0 Goal
-\f2\i0 : Transition into ML by predicting an outcome from healthcare data.\
-\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
-\ls4\ilvl0
-\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Project Idea
-\f2\b0 : 
-\f1\i Readmission Risk Prediction
-\f2\i0 \
-\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
-\ls4\ilvl1\cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Use features: age, diagnoses, encounter history, labs (if dataset allows).\
-\ls4\ilvl1\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Train/test: Logistic Regression, Random Forest, XGBoost.\
-\ls4\ilvl1\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Evaluate with AUC/ROC, precision-recall.\
-\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
-\ls4\ilvl0
-\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Tech
-\f2\b0 : Python (scikit-learn, XGBoost, pandas).\
-\ls4\ilvl0
-\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Deliverable
-\f2\b0 : Notebook + model comparison + confusion matrix plots.\
-\pard\pardeftab720\partightenfactor0
-\cf3 \strokec3 \
-\pard\pardeftab720\sa280\partightenfactor0
+Read me
+# Healthcare Data Portfolio
 
-\f0\b\fs28 \cf0 \strokec2 5. End-to-End Production Project (Pipeline + Analytics + ML)\
-\pard\pardeftab720\sa240\partightenfactor0
+This portfolio demonstrates end-to-end skills in **data engineering, analytics, reporting, and machine learning**, with a focus on healthcare data.  
+It highlights my ability to build robust data pipelines, design analytical models, and deliver business insights through dashboards and predictive analytics.
 
-\f1\i\b0\fs24 \cf0 Goal
-\f2\i0 : One \'93flagship project\'94 that integrates everything above.\
-\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
-\ls5\ilvl0
-\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Project Idea
-\f2\b0 : 
-\f1\i Healthcare Outcomes Platform
-\f2\i0 \
-\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
-\ls5\ilvl1\cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Ingest \uc0\u8594  Clean \u8594  Star Schema \u8594  BI Dashboard \u8594  Predictive Model.\
-\ls5\ilvl1\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Example: \'93Pipeline for predicting hospital readmissions and reporting utilization metrics.\'94\
-\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
-\ls5\ilvl0
-\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Tech
-\f2\b0 : Python, SQL, Airflow, Docker, Power BI/Tableau, scikit-learn.\
-\ls5\ilvl0
-\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Deliverable
-\f2\b0 : Full GitHub repo, architecture diagram, demo dashboard, ML notebook.\
-\pard\pardeftab720\partightenfactor0
-\cf3 \strokec3 \
-\pard\pardeftab720\sa280\partightenfactor0
+---
 
-\f0\b\fs28 \cf0 \strokec2 Bonus Project (Optional, but high-impact)\
-\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
-\ls6\ilvl0
-\fs24 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Natural Language Processing (NLP) on Clinical Notes
-\f2\b0 \
-\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
-\ls6\ilvl1\cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Use synthetic notes (MIMIC-III or other datasets).\
-\ls6\ilvl1\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Apply topic modeling or BERT embeddings to extract insights (e.g., most common symptoms before readmission).\
-\ls6\ilvl1\kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u9702 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 This shows frontier skills.\
-\pard\tx720\tx1440\pardeftab720\sa240\partightenfactor0
-\cf0 \
-\pard\pardeftab720\sa240\partightenfactor0
-\cf0 With this setup:\
-\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
-\ls7\ilvl0
-\f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Data Engineering
-\f2\b0  \uc0\u8594  ETL + star schema.\
-\ls7\ilvl0
-\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Analytics/Reporting
-\f2\b0  \uc0\u8594  SQL + BI dashboards.\
-\ls7\ilvl0
-\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Advanced Analytics
-\f2\b0  \uc0\u8594  healthcare cohorts/claims.\
-\ls7\ilvl0
-\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 ML
-\f2\b0  \uc0\u8594  predictive readmissions.\
-\ls7\ilvl0
-\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Flagship
-\f2\b0  \uc0\u8594  end-to-end integration.\
-\pard\tx720\tx1440\pardeftab720\sa240\partightenfactor0
-\cf0 \strokec2 \
-\pard\pardeftab720\partightenfactor0
-\cf3 \strokec3 \
-\pard\pardeftab720\sa240\partightenfactor0
-\cf0 \strokec2 \
-}
+## Projects
+
+### 1. [Data Engineering: Patient Encounter ETL](01_data_engineering/)
+- Built an ETL pipeline to ingest FHIR-like encounter data into a cloud warehouse.
+- Designed a **star schema** for healthcare analytics (patients, providers, encounters).
+- Tools: Python, SQL, Docker, PostgreSQL.
+
+### 2. [Analytics & Reporting: Healthcare Utilization Dashboard](02_analytics_reporting/)
+- Created interactive dashboards for encounter trends, wait times, and readmission rates.
+- Tools: Power BI, SQL.
+
+### 3. [Advanced Analytics: Claims & Cohort Analysis](03_advanced_analytics/)
+- Analyzed claims to measure cost per patient, chronic disease prevalence, and provider efficiency.
+- Tools: SQL, Python (pandas, matplotlib).
+
+### 4. [Machine Learning: Readmission Risk Prediction](04_machine_learning/)
+- Developed models to predict hospital readmissions.
+- Compared Logistic Regression, Random Forest, and XGBoost.
+- Tools: Python (scikit-learn, pandas, matplotlib).
+
+### 5. [End-to-End Project: Healthcare Outcomes Platform](05_end_to_end_project/)
+- Integrated ETL pipeline, star schema, dashboards, and predictive modeling.
+- Tools: Python, SQL, Airflow, Power BI, scikit-learn.
+
+### 6. [Bonus: NLP on Clinical Notes](06_bonus_nlp/) *(optional)*
+- Applied NLP to clinical notes for topic modeling and insights.
+- Tools: Python (spaCy, scikit-learn, transformers).
+
+---
+
+## Skills Demonstrated
+- **Data Engineering**: ETL pipelines, star schema design, SQL optimization.
+- **Analytics & Reporting**: BI dashboards, cohort analysis, healthcare KPIs.
+- **Machine Learning**: Feature engineering, classification models, evaluation.
+- **Healthcare Expertise**: Claims data, FHIR schema, readmission analysis.
+
+
+
+
+
