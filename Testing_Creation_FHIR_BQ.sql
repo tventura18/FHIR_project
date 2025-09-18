@@ -1,6 +1,7 @@
 SELECT * FROM `fhir-synthea-data.fhir_curated.practitioners` LIMIT 1000;
 SELECT * FROM `fhir-synthea-data.fhir_curated.practitioner_roles` LIMIT 1000;
 SELECT * FROM `fhir-synthea-data.fhir_curated.observations` LIMIT 1000;
+SELECT * FROM `fhir-synthea-data.fhir_curated.conditions` LIMIT 1000;
 
 --Generates create statement for tables created with gui
 SELECT 
@@ -45,13 +46,36 @@ CREATE TABLE fhir_curated.conditions (
     condition_id STRING NOT NULL,  -- FHIR Condition id
     patient_id STRING NOT NULL,
     encounter_id STRING NOT NULL,
+    clinical_status STRING, 
+
+    -- flattened main code for joins/filtering
     code STRING,                    -- optional (LOINC, SNOMED, etc.)
-    description STRING,             -- optional
+    code_text STRING,             -- optional
+    code_system STRING,                  --optional show system
+
+    --nested array for full fidelity
+    codings ARRAY<STRUCT<
+      system STRING,
+      code STRING,
+      display STRING
+    >>,
+
+    -- flattened main code for joins/filtering
+    category_code STRING,
     category STRING,                -- optional
+
+ --nested array for full fidelity
+    category_codings ARRAY<STRUCT<
+      system STRING,
+      code STRING,
+      display STRING
+    >>,
+
     onset_date TIMESTAMP,           -- using TIMESTAMP in case time is relevant
     load_timestamp TIMESTAMP NOT NULL,
     --PRIMARY KEY(condition_id)
-) CLUSTER BY patient_id;
+) PARTITION BY DATE (load_timestamp)
+CLUSTER BY patient_id;
 
 -- Optional: cluster on patient_id for analytics
 -- CLUSTER BY patient_id
