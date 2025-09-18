@@ -1,5 +1,6 @@
 SELECT * FROM `fhir-synthea-data.fhir_curated.practitioners` LIMIT 1000;
 SELECT * FROM `fhir-synthea-data.fhir_curated.practitioner_roles` LIMIT 1000;
+SELECT * FROM `fhir-synthea-data.fhir_curated.observations` LIMIT 1000;
 
 --Generates create statement for tables created with gui
 SELECT 
@@ -57,18 +58,40 @@ CREATE TABLE fhir_curated.conditions (
 
 
 CREATE TABLE fhir_curated.observations (
-    observation_id STRING NOT NULL,   -- FHIR Observation id
-    obs_code STRING,                  -- LOINC, SNOMED, etc.
-    system STRING,                    -- code system URL
-    obs_code_text STRING,             -- human-readable description
-    value_numeric FLOAT64,            -- for numeric observations
-    value_text STRING,                -- for text/categorical observations
-    unit STRING,                      -- unit for numeric value
+    observation_id STRING NOT NULL,       -- FHIR Observation id
+    status STRING,
+    
+    -- flattened main code for joins/filtering
+    obs_code STRING,                      -- e.g. LOINC code "718-7"
+    system STRING,                        -- system URL "http://loinc.org"
+    obs_code_text STRING,                 -- display text "Hemoglobin [Mass/volume] in Blood"
+
+    -- nested array for full fidelity
+    codings ARRAY<STRUCT<
+        system STRING,
+        code STRING,
+        display STRING
+    >>,
+
+    value_numeric FLOAT64,
+    value_text STRING,
+    unit STRING,
+
+    -- for capturing codings inside valueCodeableConcept
+    value_codings ARRAY<STRUCT<
+        system STRING,
+        code STRING,
+        display STRING
+    >>,
+
     patient_id STRING NOT NULL,
     encounter_id STRING NOT NULL,
-    load_timestamp TIMESTAMP NOT NULL,
-    --PRIMARY KEY(observation_id)
-);
+    effective_datetime TIMESTAMP,         -- when measurement taken
+    load_timestamp TIMESTAMP NOT NULL
+)
+PARTITION BY DATE(load_timestamp)
+CLUSTER BY patient_id, encounter_id;
+
 
 CREATE TABLE fhir_curated.diagnostic_reports (
     diagnostic_report_id STRING NOT NULL,   -- FHIR DiagnosticReport.id
