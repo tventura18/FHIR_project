@@ -139,20 +139,78 @@ CREATE TABLE fhir_curated.diagnostic_report_observations (
 
 -- Optional: cluster by patient_id for faster patient-level queries
 -- CLUSTER BY patient_id
+
 CREATE TABLE fhir_curated.claims (
   claim_id STRING NOT NULL,
+  use STRING,
   status STRING,
   patient_id STRING,
   claim_type_info STRING,
-  total STRING,
+
+  -- amounts
+  total_value FLOAT64,
+  total_currency STRING,
+
+  -- dates
   billable_start TIMESTAMP, 
   billable_end TIMESTAMP,
-  date_created TIMESTAMP,
-  provider_id STRING,
+  created TIMESTAMP,
+
+  -- provider
+  provider_reference STRING,
   provider_type STRING,
+  provider_code STRING, 
+
   priority_code STRING,
-  insurance STRING,
-  items STRING, 
+
+  -- claim-level facility (main billing provider location)
+  facility STRUCT<
+    facility_id STRING,     -- reference to Location resource
+    system STRING,          -- coding system (NPI, CCN, etc.)
+    code STRING,            -- facility code
+    display STRING          -- facility name or label
+  >,
+
+  --diagnosis STRING, ---condition_id? 
+  diagnoses ARRAY<STRUCT<
+    sequence INT64,          -- sequence number (1, 2, …)
+    condition_id STRING,     -- reference to Condition (urn:uuid or normalized ID)
+    system STRING,           -- coding system (ICD-10, SNOMED, etc.)
+    code STRING,             -- diagnosis code
+    display STRING           -- human-readable label
+  >>,
+
+  -- insurance
+  all_insurances ARRAY<STRUCT<
+    sequence INT64,
+    focal BOOLEAN,
+    coverage STRING
+  >>,
+
+  -- items
+
+  items ARRAY<STRUCT<
+    sequence INT64,                           -- sequence number
+    diagnostic_sequence ARRAY<INT64>,         -- for product or service
+    procedure_sequence ARRAY<INT64>,          -- for prodcut or service
+    item_type STRING,                         -- category, productOrService, location, encounter            
+    system STRING,                            -- system for productOrService
+    code STRING,                              -- code for productOrService
+    display STRING,                           -- display for productOrService
+    service_start TIMESTAMP,                  -- START service period
+    service_end TIMESTAMP,                    -- END service period
+    net_value FLOAT64,
+    net_currency STRING,
+    location_system STRING,                   --location -system 
+      facility STRUCT<
+        facility_id STRING,
+        system STRING,
+        code STRING,
+        display STRING
+      >,                   
+    encounter STRING,            
+    item_text STRING                          --defining item ie: Emergency room addmission, laceration - injury (disorder)             
+  >>,
   load_timestamp TIMESTAMP NOT NULL
 )PARTITION BY DATE(billable_start)       -- for business queries
 CLUSTER BY patient_id, load_timestamp; -- still helps with incremental ETL;
