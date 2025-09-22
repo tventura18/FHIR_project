@@ -156,64 +156,73 @@ CREATE TABLE fhir_curated.claims (
   billable_end TIMESTAMP,
   created TIMESTAMP,
 
-  -- provider
-  provider_reference STRING,
-  provider_type STRING,
-  provider_code STRING, 
-
-  priority_code STRING,
-
-  -- claim-level facility (main billing provider location)
-  facility STRUCT<
+  -- claim-level provider & facility
+  billing_provider STRUCT<
+    provider_id STRING,     -- reference to Practitioner/Organization
+    provider_type STRING,   -- e.g., "institutional", "professional"
+    provider_code STRING    -- NPI, TIN, etc.
+  >,
+  claim_facility STRUCT<
     facility_id STRING,     -- reference to Location resource
-    system STRING,          -- coding system (NPI, CCN, etc.)
-    code STRING,            -- facility code
-    display STRING          -- facility name or label
+    system STRING,
+    code STRING,
+    display STRING          -- facility name
   >,
 
-  --diagnosis STRING, ---condition_id? 
-  diagnoses ARRAY<STRUCT<
-    sequence INT64,          -- sequence number (1, 2, …)
-    condition_id STRING,     -- reference to Condition (urn:uuid or normalized ID)
-    system STRING,           -- coding system (ICD-10, SNOMED, etc.)
-    code STRING,             -- diagnosis code
-    display STRING           -- human-readable label
-  >>,
-
-  -- insurance
+  -- all insurances
   all_insurances ARRAY<STRUCT<
     sequence INT64,
     focal BOOLEAN,
     coverage STRING
   >>,
 
-  -- items
+  -- diagnoses at claim level (optional to keep)
+  diagnoses ARRAY<STRUCT<
+    diagnosis_id STRING,    -- reference to Condition or normalized ID
+    sequence STRING,
+    system STRING,          -- ICD-10, SNOMED, etc.
+    code STRING,
+    display STRING
+  >>,
 
+  -- items (each claim line)
   items ARRAY<STRUCT<
-    sequence INT64,                           -- sequence number
-    diagnostic_sequence ARRAY<INT64>,         -- for product or service
-    procedure_sequence ARRAY<INT64>,          -- for prodcut or service
-    item_type STRING,                         -- category, productOrService, location, encounter            
-    system STRING,                            -- system for productOrService
-    code STRING,                              -- code for productOrService
-    display STRING,                           -- display for productOrService
-    service_start TIMESTAMP,                  -- START service period
-    service_end TIMESTAMP,                    -- END service period
+    sequence INT64,                       -- line number
+    item_type STRING,                     -- productOrService, category, location, encounter
+    system STRING,
+    code STRING,
+    display STRING,
+    service_start TIMESTAMP,
+    service_end TIMESTAMP,
     net_value FLOAT64,
     net_currency STRING,
-    location_system STRING,                   --location -system 
-      facility STRUCT<
-        facility_id STRING,
-        system STRING,
-        code STRING,
-        display STRING
-      >,                   
-    encounter STRING,            
-    item_text STRING                          --defining item ie: Emergency room addmission, laceration - injury (disorder)             
+    location STRUCT<
+      facility_id STRING,
+      system STRING,
+      code STRING,
+      display STRING
+    >,
+    encounter STRING,
+
+    -- flattened diagnosis/procedure links
+    --diagnoses ARRAY<STRUCT<
+    --  system STRING,
+    --  code STRING,
+    --  display STRING
+    -->>,
+    --procedures ARRAY<STRUCT<
+    --  system STRING,
+    --  code STRING,
+    --  display STRING
+    -->>,
+    item_text STRING
   >>,
+
   load_timestamp TIMESTAMP NOT NULL
-)PARTITION BY DATE(billable_start)       -- for business queries
-CLUSTER BY patient_id, load_timestamp; -- still helps with incremental ETL;
+)
+PARTITION BY DATE(billable_start)
+CLUSTER BY patient_id, load_timestamp;
+
 
 --careteam for each encounter
 CREATE TABLE fhir_curated.care_teams (
