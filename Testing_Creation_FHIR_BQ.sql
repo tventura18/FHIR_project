@@ -2,6 +2,12 @@ SELECT * FROM `fhir-synthea-data.fhir_curated.practitioners` LIMIT 1000;
 SELECT * FROM `fhir-synthea-data.fhir_curated.practitioner_roles` LIMIT 1000;
 SELECT * FROM `fhir-synthea-data.fhir_curated.observations` LIMIT 1000;
 SELECT * FROM `fhir-synthea-data.fhir_curated.conditions` LIMIT 1000;
+SELECT * FROM `fhir-synthea-data.fhir_curated.organizations` LIMIT 1000;  
+
+SELECT *
+FROM `fhir-synthea-data.fhir_curated.claims`
+WHERE ARRAY_LENGTH(items) > 0
+LIMIT 10000;
 
 --Generates create statement for tables created with gui
 SELECT 
@@ -116,6 +122,14 @@ CREATE TABLE fhir_curated.observations (
 PARTITION BY DATE(load_timestamp)
 CLUSTER BY patient_id, encounter_id;
 
+CREATE TABLE fhir_curated.organizations (
+  organization_id STRING NOT NULL,
+  organization_name STRING,
+  organization_type STRING,
+  active BOOLEAN,
+  load_timestamp TIMESTAMP
+);
+
 
 CREATE TABLE fhir_curated.diagnostic_reports (
     diagnostic_report_id STRING NOT NULL,   -- FHIR DiagnosticReport.id
@@ -156,18 +170,20 @@ CREATE TABLE fhir_curated.claims (
   billable_end TIMESTAMP,
   created TIMESTAMP,
 
-  -- claim-level provider & facility
-  billing_provider STRUCT<
-    provider_id STRING,     -- reference to Practitioner/Organization
-    provider_type STRING,   -- e.g., "institutional", "professional"
-    provider_code STRING    -- NPI, TIN, etc.
-  >,
-  claim_facility STRUCT<
-    facility_id STRING,     -- reference to Location resource
-    system STRING,
-    code STRING,
-    display STRING          -- facility name
-  >,
+  -- claim-level provider
+  provider_reference_id STRING,
+  provider_reference_type STRING,
+  provider_display STRING,
+
+  -- priority
+  priority_code STRING,
+
+  -- facility
+  facility ARRAY<STRUCT<
+    facility_reference STRING,
+    facility_id STRING,
+    facility_display STRING
+  >>,
 
   -- all insurances
   all_insurances ARRAY<STRUCT<
@@ -176,45 +192,32 @@ CREATE TABLE fhir_curated.claims (
     coverage STRING
   >>,
 
-  -- diagnoses at claim level (optional to keep)
+  -- diagnoses
   diagnoses ARRAY<STRUCT<
-    diagnosis_id STRING,    -- reference to Condition or normalized ID
-    sequence STRING,
-    system STRING,          -- ICD-10, SNOMED, etc.
-    code STRING,
-    display STRING
+    sequence INT64,
+    diagnosis STRING
   >>,
 
   -- items (each claim line)
   items ARRAY<STRUCT<
-    sequence INT64,                       -- line number
-    item_type STRING,                     -- productOrService, category, location, encounter
+    sequence INT64,
+    item_type STRING,
     system STRING,
     code STRING,
     display STRING,
-    service_start TIMESTAMP,
-    service_end TIMESTAMP,
+    service_start STRING,  -- if your ETL produces ISO string, otherwise TIMESTAMP
+    service_end STRING,
     net_value FLOAT64,
     net_currency STRING,
-    location STRUCT<
+    location ARRAY<STRUCT<
       facility_id STRING,
       system STRING,
       code STRING,
       display STRING
-    >,
+    >>,
     encounter STRING,
-
-    -- flattened diagnosis/procedure links
-    --diagnoses ARRAY<STRUCT<
-    --  system STRING,
-    --  code STRING,
-    --  display STRING
-    -->>,
-    --procedures ARRAY<STRUCT<
-    --  system STRING,
-    --  code STRING,
-    --  display STRING
-    -->>,
+    start_period STRING,
+    end_period STRING,
     item_text STRING
   >>,
 
@@ -271,7 +274,7 @@ PARTITION BY DATE(performed_start)                  -- partition by procedure da
 CLUSTER BY patient_id, procedure_id;               -- cluster for common query patterns
 
 CREATE TABLE fhir_curated.devices (
-    device_id STRING NOT NULL,                 -- FHIR Device.id
+    device_id STRING NOT NULL,                   -- FHIR Device.id
     status STRING,                             -- active, inactive, entered-in-error
     distinct_identifier STRING,                -- e.g., UDI or other unique identifier
     manufacture_date DATE,                     -- optional
