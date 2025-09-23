@@ -2,7 +2,8 @@ SELECT * FROM `fhir-synthea-data.fhir_curated.practitioners` LIMIT 1000;
 SELECT * FROM `fhir-synthea-data.fhir_curated.practitioner_roles` LIMIT 1000;
 SELECT * FROM `fhir-synthea-data.fhir_curated.observations` LIMIT 1000;
 SELECT * FROM `fhir-synthea-data.fhir_curated.conditions` LIMIT 1000;
-SELECT * FROM `fhir-synthea-data.fhir_curated.organizations` LIMIT 1000;  
+SELECT * FROM `fhir-synthea-data.fhir_curated.organizations` LIMIT 1000; 
+SELECT * FROM `fhir-synthea-data.fhir_curated.encounter` LIMIT 1000; 
 
 SELECT *
 FROM `fhir-synthea-data.fhir_curated.claims`
@@ -168,7 +169,8 @@ CREATE TABLE fhir_curated.encounter (
     location_id STRING,
 
     -- Financial / billing link
-    claim_id STRING                 -- Optional link to claims
+    claim_id STRING,                 -- Optional link to claims
+    load_timestamp TIMESTAMP
     
 ) PARTITION BY DATE(start_datetime)
 CLUSTER BY organization_id, encounter_class;
