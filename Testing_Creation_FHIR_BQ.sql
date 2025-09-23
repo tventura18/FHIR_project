@@ -9,6 +9,22 @@ FROM `fhir-synthea-data.fhir_curated.claims`
 WHERE ARRAY_LENGTH(items) > 0
 LIMIT 10000;
 
+SELECT
+    o.organization_name,
+    e.encounter_class AS encounter_type,
+    COUNT(*) AS encounter_count
+FROM
+    fhir_curated.encounter e
+LEFT JOIN
+    fhir_curated.organization o
+    ON e.organization_id = o.organization_id
+GROUP BY
+    o.organization_name,
+    e.encounter_class
+ORDER BY
+    encounter_count DESC
+LIMIT 50;
+
 --Generates create statement for tables created with gui
 SELECT 
   CONCAT(
@@ -129,6 +145,33 @@ CREATE TABLE fhir_curated.organizations (
   active BOOLEAN,
   load_timestamp TIMESTAMP
 );
+
+CREATE TABLE fhir_curated.encounter (
+    encounter_id STRING NOT NULL,
+    patient_id STRING NOT NULL,
+    organization_id STRING,          -- The provider org responsible for the encounter
+    encounter_class STRING,          -- FHIR: inpatient, outpatient, emergency, etc.
+    encounter_status STRING,         -- FHIR: planned, finished, cancelled, etc.
+    encounter_type_code STRING,      -- Optional: detailed type coding
+    encounter_type_display STRING,   -- Human-readable type
+
+    -- Dates
+    start_datetime TIMESTAMP,
+    end_datetime TIMESTAMP,
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    -- Providers involved
+    attending_provider_id STRING,
+    referring_provider_id STRING,
+
+    -- Location info
+    location_id STRING,
+
+    -- Financial / billing link
+    claim_id STRING                 -- Optional link to claims
+    
+) PARTITION BY DATE(start_datetime)
+CLUSTER BY organization_id, encounter_class;
 
 
 CREATE TABLE fhir_curated.diagnostic_reports (
@@ -274,7 +317,7 @@ PARTITION BY DATE(performed_start)                  -- partition by procedure da
 CLUSTER BY patient_id, procedure_id;               -- cluster for common query patterns
 
 CREATE TABLE fhir_curated.devices (
-    device_id STRING NOT NULL,                   -- FHIR Device.id
+    device_id STRING NOT NULL,                 -- FHIR Device.id
     status STRING,                             -- active, inactive, entered-in-error
     distinct_identifier STRING,                -- e.g., UDI or other unique identifier
     manufacture_date DATE,                     -- optional
