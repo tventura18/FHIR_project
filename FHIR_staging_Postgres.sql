@@ -206,6 +206,19 @@ CREATE TABLE IF NOT EXISTS fhir_staging.allergyintolerances_fhir_raw (
     load_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+SELECT
+  --patient_id,
+  t.document_reference_id ,
+  (content->0->'attachment'->>'title') AS title,
+  convert_from(decode(content->0->'attachment'->>'data', 'base64'), 'UTF8') AS note_text
+FROM (
+  SELECT
+    --patient_id,
+    document_reference_id,
+    (resource->'content') AS content
+  FROM fhir_staging_sample.document_references_fhir_raw
+) t;
+
 -- ============================
 -- Optional Drop Statements
 -- Uncomment only if you want to completely remove a table
